@@ -1,16 +1,15 @@
-from SubmissionClass import *
 from asyncio.windows_events import NULL
-from RandomClass import *
-import os
-import random
-from PIL import Image
-import discord
 from discord.ext import commands
-import asyncio
-import datetime as dt
 from dotenv import load_dotenv
+from PIL import Image
+
+from SubmissionClass import *
 from CodeforceClass import *
 from FilterClass import *
+from RandomClass import *
+
+import discord, asyncio, random, os
+import datetime as dt
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -91,7 +90,7 @@ async def rand(ctx: Any) -> None:
 
 
 @bot.command(name='filter', help='sends random codeforce problem fitting given requirements')
-async def filter(ctx: Any, min_rating: int, max_rating: int, *tags: Tuple[str]) -> None:
+async def filter(ctx: Any, min_rating: int, max_rating: int, *tags: tuple) -> None:
     """filters problems using sent requests"""
 
     try:
@@ -121,11 +120,11 @@ async def submit(ctx, problem: str) -> None:
         await ctx.send(T.send_submit_link())
 
     except IndexError:
+        all_found_codes = [item for item in problem 
+                           if item in LOWERCASE_CODEFORCE_CODES + UPPERCASE_CODEFORCE_CODES]
+
         # check if any letters from a-f or A-F inclusive
-        if [item 
-            for item in problem 
-            if item in LOWERCASE_CODEFORCE_CODES + UPPERCASE_CODEFORCE_CODES] == []:
-            
+        if all_found_codes == []:
             await ctx.send("```Problem does not exist```")
         
         elif [item for item in problem if item in UPPERCASE_CODEFORCE_CODES] != []:
