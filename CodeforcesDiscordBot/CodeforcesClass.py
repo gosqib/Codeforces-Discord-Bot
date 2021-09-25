@@ -18,12 +18,7 @@ OPENING_PICTURE = "Opening Picture.png"
 
 class CodeforceProblem:
     def __init__(self, problem: str) -> None:
-        self._PROBLEM_TYPES = list('ABCDEFGHI')
-        self._SITE_CODE = [
-            letter 
-            for letter in problem 
-            if letter in self._PROBLEM_TYPES
-        ]
+        self._SITE_CODE = [letter for letter in problem if letter in 'ABCDEFGHI']
         self._SITE = f"https://codeforces.com/problemset/problem/{problem[:problem.find(self._SITE_CODE[0])]}/{problem[problem.find(self._SITE_CODE[0]):]}"
         driver.get(self._SITE)
 
