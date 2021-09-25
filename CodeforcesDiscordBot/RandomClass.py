@@ -22,7 +22,7 @@ class RandomProblem:
     def _remove_quotes_and_link(self, problems: List[str]) -> List[str]:
         """removes quotes and link that were added in regex process for clarity"""
 
-        return [_[1:-1].replace("/problemset/problem/", "") for _ in problems]
+        return [problem[1:-1].replace("/problemset/problem/", "") for problem in problems]
 
 
     def _gather_problem_code(self) -> str:
@@ -45,8 +45,10 @@ class RandomProblem:
         if PAGINATION:
             self._LAST_CODEFORCE_PAGE = PAGINATION[-1]
             self._RAW_PAGINATION = re.findall('pageindex=".*?"', str(self._LAST_CODEFORCE_PAGE))
+            # looks for the html of the final page of problems on the page, 
+            # then uses regex to find the number representing that final page,
+            # cuts the quotes out from the regex that was used to find itself 
             self._TOTAL_CODEFORCE_PROBLEM_PAGES = int(re.findall('".*"', self._RAW_PAGINATION[0])[0][1:-1])
-
             # go to a random page and open that and look for problem codes
             self._STARTING_PAGE = f"https://codeforces.com/problemset/page/{randrange(1, self._TOTAL_CODEFORCE_PROBLEM_PAGES) + 1}{self._URL_TAGS_RECORD}"
             return self._gather_problem_code()
