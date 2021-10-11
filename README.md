@@ -6,9 +6,9 @@ Discord bot that crops and posts any specified, or unspecified codeforce problem
 This was written while using Chrome, so driver installations are Chrome-based
 1. Download `Selenium`, `Pillow`, `BeautifulSoup`, `Discord.py`, and `Python-dotenv`  
 2. Install web driver for Selenium: Install `Selenium Chrome driver` (you may need to add to path)  
+
 3 Option 1. Create `.env` file in the same project folder, go into that file, and type the following, `DISCORD_TOKEN={your token}`. No quotes or brackets.  
 3 Option 2. At the bottom of DiscordBot.py, you will see `bot.run(TOKEN)`, remove `TOKEN` and add your discord token. Explanation to how below.  
-
    
 4. Create a discord bot in your discord developer panel, and paste your discord bot token in your already-created `.env` file
 5. Open project in text editor and run `DiscordBot.py` in `CodeforcesDiscordBot`
